@@ -1,23 +1,27 @@
 "use client";
-import { MARKETS } from "@/solana/constants";
-import { fetchTokenBalance } from "@/solana/utils/helpers";
-import { useFermiStore } from "@/stores/fermiStore";
-import { Button } from "@nextui-org/react";
+
 import { useAnchorWallet, useConnection } from "@solana/wallet-adapter-react";
-import axios from "axios";
-import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useState } from "react";
-import { toast } from "sonner";
-import { PublicKey } from "@solana/web3.js";
-import MarketSelector from "@/components/trade-form/MarketSelector";
+import { useRouter, useSearchParams } from "next/navigation";
+
+import { Button } from "@nextui-org/react";
+import { MARKETS } from "@/solana/constants";
 import MarketList from "@/components/trade-form/MarketList";
+import MarketSelector from "@/components/trade-form/MarketSelector";
 import Navigation from "@/components/layout/Navigation";
+import { PublicKey } from "@solana/web3.js";
+import axios from "axios";
+import { fetchTokenBalance } from "@/solana/utils/helpers";
+import { toast } from "sonner";
+import { useFermiStore } from "@/stores/fermiStore";
+
 type Balances = { baseBalance: string; quoteBalance: string };
+
+
 
 const Airdrop = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [isLoading, setIsLoading] = useState(false);
   const marketParam = searchParams?.get("market");
   const selectedMarket = useFermiStore((state) => state.selectedMarket);
   const connectedWallet = useAnchorWallet();
@@ -123,7 +127,6 @@ const Airdrop = () => {
 
   const airdropToken = async (mint: string, amount: number) => {
     try {
-      setIsLoading(true);
       const data = {
         destinationAddress: connectedWallet?.publicKey,
         mint,
@@ -136,9 +139,7 @@ const Airdrop = () => {
     } catch (err) {
       toast.error("Failed to send airdrop.");
       console.log(err);
-    } finally {
-      setIsLoading(false);
-    }
+    } 
   };
 
   useEffect(() => {
@@ -147,16 +148,6 @@ const Airdrop = () => {
       getQuoteBalance();
     }
   }, [selectedMarket, connectedWallet]);
-
-  // if (!isMarketLoading && !selectedMarket.publicKey) {
-  //   return (
-  //     <Layout>
-  //       <div className="flex items-center justify-center screen-center">
-  //         INVALID MARKET
-  //       </div>
-  //     </Layout>
-  //   );
-  // }
 
   return (
     <main className="h-screen bg-gradient-to-t from-primary-700 to-primary-400 flex flex-col space-y-4  text-white p-4 bg-gradient">

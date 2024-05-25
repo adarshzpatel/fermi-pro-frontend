@@ -1,19 +1,21 @@
 "use client";
-import useSolBalance from "@/hooks/useSolBalance";
+
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/react";
-import { useWalletMultiButton } from "@solana/wallet-adapter-base-ui";
-import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
-import { useWalletModal } from "@solana/wallet-adapter-react-ui";
-
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { TbArrowsExchange2, TbCopy, TbLogout } from "react-icons/tb";
-import { toast } from "sonner";
+import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+import { toast } from "sonner";
+import useSolBalance from "@/hooks/useSolBalance";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import { useWalletMultiButton } from "@solana/wallet-adapter-base-ui";
+
+// CustomWalletConnectButton component
 const CustomWalletConnectButton = () => {
   const { disconnect } = useWallet();
   const { solBalance } = useSolBalance();
@@ -27,6 +29,7 @@ const CustomWalletConnectButton = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const ref = useRef<HTMLUListElement>(null);
 
+  // Close the dropdown menu when clicking outside of it
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
       const node = ref.current;
@@ -46,12 +49,14 @@ const CustomWalletConnectButton = () => {
     };
   }, []);
 
+  // Handle disconnecting from the wallet
   const handleDisconnect = useCallback(() => {
     disconnect().catch(() => {
       // Silently catch because any errors are caught by the context `onError` handler
     });
   }, [disconnect]);
 
+  // Generate the content to be displayed in the button
   const content = useMemo(() => {
     if (publicKey) {
       const base58 = publicKey.toBase58();
@@ -73,11 +78,11 @@ const CustomWalletConnectButton = () => {
           base: "",
           content:
             "bg-gray-950 border  shadow-2xl shadow-gray-950  border-gray-600",
-
           arrow: "",
         }}
       >
         {buttonState === "connected" ? (
+          // Display the connected wallet information
           <DropdownTrigger className="px-4 bg-gray-800/50 border-gray-700 border-l h-full rounded-r-xl hover:bg-gray-800 text-white/60 hover:text-white ease-out duration-300">
             <div className="flex items-center ">
               {solBalance && (
@@ -85,11 +90,11 @@ const CustomWalletConnectButton = () => {
                   {solBalance && (solBalance / 1000000000).toFixed(4) + " SOL "}
                 </p>
               )}
-
               <p className="border-l border-gray-600 pl-4">{content}</p>
             </div>
           </DropdownTrigger>
         ) : (
+          // Display the connect button
           <button
             onClick={() => {
               console.log(buttonState);
@@ -111,7 +116,8 @@ const CustomWalletConnectButton = () => {
             {content}
           </button>
         )}
-        <DropdownMenu  aria-label="Wallet dropdown with options to change wallet and disconnect">
+        <DropdownMenu aria-label="Wallet dropdown with options to change wallet and disconnect">
+          {/* Copy Address option */}
           <DropdownItem
             closeOnSelect={false}
             className="data-[hover=true]:bg-gray-800"
@@ -119,22 +125,23 @@ const CustomWalletConnectButton = () => {
             onClick={async () => {
               await navigator.clipboard.writeText(publicKey?.toBase58() ?? "");
               setCopied(true);
-              toast.success("Copied to clipboard")
+              toast.success("Copied to clipboard");
               setTimeout(() => setCopied(false), 400);
             }}
             key="copy_address"
-
           >
             {copied ? "Copied" : "Copy Address"}
           </DropdownItem>
+          {/* Change Wallet option */}
           <DropdownItem
-          className="data-[hover=true]:bg-gray-800"
+            className="data-[hover=true]:bg-gray-800"
             startContent={<TbArrowsExchange2 className="h-5 w-5" />}
             onClick={() => setModalVisible(true)}
             key="change_wallet"
           >
             Change wallet
           </DropdownItem>
+          {/* Disconnect option */}
           <DropdownItem
             className="text-red-500 data-[hover=true]:bg-red-500 data-[hover=true]:text-white"
             startContent={<TbLogout className="h-5 w-5" />}

@@ -1,7 +1,8 @@
-import { useFermiStore } from "@/stores/fermiStore";
 import React, { useMemo } from "react";
+
 import AccountNotFound from "./AccountNotFound";
 import OpenOrdersRow from "./OpenOrdersRow";
+import { useFermiStore } from "@/stores/fermiStore";
 
 const OpenOrders = () => {
   const openOrders = useFermiStore((s) => s.openOrders);
@@ -53,7 +54,6 @@ const OpenOrders = () => {
           </tr>
         )}
         {openOrders?.orders?.map((it: any) => {
-        
           return (
           <OpenOrdersRow
             key={`order-${it.id}`}

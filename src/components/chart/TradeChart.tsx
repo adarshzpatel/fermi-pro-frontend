@@ -1,10 +1,11 @@
+import { AreaData, Time, WhitespaceData } from "lightweight-charts";
 import React, { useEffect, useState } from "react";
+
 import { ChartComponent } from "./ChartComponent";
+import { RealtimeChannel } from "@supabase/supabase-js";
+import { Spinner } from "@nextui-org/react";
 import supabase from "@/supabase";
 import { useFermiStore } from "@/stores/fermiStore";
-import { Spinner } from "@nextui-org/react";
-import { AreaData, Time, WhitespaceData } from "lightweight-charts";
-import { RealtimeChannel } from "@supabase/supabase-js";
 
 type Props = {};
 
@@ -46,8 +47,10 @@ const TradeChart = (props: Props) => {
     let channel: RealtimeChannel | null = null;
     const marketString = selectedMarket?.publicKey.toString();
     if (marketString) {
+      // get the initial price feed data
       fetchInitialData(marketString);
 
+      // subscribe to the price feed channel 
       channel = supabase?.channel(`price_feed`).on(
         "postgres_changes",
         {
@@ -58,6 +61,7 @@ const TradeChart = (props: Props) => {
         (payload) => {
           const newData = payload.new as any;
           if (newData) {
+            // convert timestampz to UTC timestamp
             const chartData = {
               time: Date.parse(newData.timestamp) / 1000,
               value: newData.price,
@@ -71,6 +75,8 @@ const TradeChart = (props: Props) => {
         return
       });
     }
+
+    // clean up the channel on unmount
     return () => {
       if (channel) {
         channel.unsubscribe();

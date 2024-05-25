@@ -1,12 +1,12 @@
+import { AnchorProvider, Wallet } from "@coral-xyz/anchor";
+import { Connection, Keypair, PublicKey } from "@solana/web3.js";
+import type { NextApiRequest, NextApiResponse } from "next";
 import {
   checkOrCreateAssociatedTokenAccount,
   mintTo,
 } from "@/solana/utils/helpers";
-import { AnchorProvider, Wallet } from "@coral-xyz/anchor";
 
-import { Connection, Keypair, PublicKey } from "@solana/web3.js";
-import type { NextApiRequest, NextApiResponse } from "next";
-
+// Dummy wallet for testing - when using in production, replace this with the actual wallet in the environment file
 const OWNER_KEYPAIR = Keypair.fromSecretKey(
   Uint8Array.from([
     229, 207, 192, 114, 233, 58, 53, 201, 119, 77, 46, 179, 94, 131, 174, 205,
@@ -16,15 +16,26 @@ const OWNER_KEYPAIR = Keypair.fromSecretKey(
   ])
 );
 
+/**
+ * Handles the airdrop API request.
+ * 
+ * @param req - The NextApiRequest object representing the incoming request.
+ * @param res - The NextApiResponse object representing the outgoing response.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
+
+  // Get destinationAddres , mintAddress , amount from the request body
   const destinationAddress = req.body?.destinationAddress;
   const mint = req.body?.mint;
-const amount = Number(req.body?.amount);
+  const amount = Number(req.body?.amount); 
+  
+  // Check if the inputs are valid
   if (!destinationAddress || !mint || !amount)
     res.status(500).send("Invalid inputs");
+
 
   const destination = new PublicKey(destinationAddress);
   const wallet = new Wallet(OWNER_KEYPAIR);
@@ -37,12 +48,14 @@ const amount = Number(req.body?.amount);
     AnchorProvider.defaultOptions()
   );
 
+  // Check if an associated token account exists for the destination address else create one 
   const authorityCoinTokenAccount = await checkOrCreateAssociatedTokenAccount(
     provider,
     new PublicKey(mint),
     destination
   );
-
+  
+  // mint the tokens to the destination address
   await mintTo(
     provider,
     new PublicKey(mint),

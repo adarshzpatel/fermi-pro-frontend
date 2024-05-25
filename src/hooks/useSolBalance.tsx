@@ -6,6 +6,9 @@ const useSolBalance = () => {
   const { connection } = useConnection();
   const connectedWallet = useAnchorWallet();
 
+/**
+ * React hook to get the sol balance of the connected wallet  
+ */
   const getSolBalance = async () => {
     try {
       if (!connectedWallet) {

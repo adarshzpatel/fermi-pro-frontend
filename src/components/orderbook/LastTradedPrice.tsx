@@ -1,20 +1,27 @@
-import { useFermiStore } from "@/stores/fermiStore";
-import supabase from "@/supabase";
-import { set } from "@coral-xyz/anchor/dist/cjs/utils/features";
 import React, { useEffect, useState } from "react";
+
+import supabase from "@/supabase";
 import { toast } from "sonner";
+import { useFermiStore } from "@/stores/fermiStore";
 
 type Props = {};
 
+/**
+ * Renders the last traded price component.
+ * @param {Props} props - The component props.
+ * @returns {JSX.Element} The last traded price component.
+ */
 const LastTradedPrice = (props: Props) => {
   const [lastTradedPrice, setLastTradedPrice] = useState<string | null>(null);
   const selectedMarket = useFermiStore((s) => s.selectedMarket);
+
   useEffect(() => {
     if (selectedMarket?.publicKey) {
+      /**
+       * Fetches the last traded price from the price feed.
+       */
       const getLastTradedPrice = async () => {
-        // make this realtime.
-        // get the last traded price with latest timestamp from spabase table price_feed
-
+        // Subscribe to the price feed channel
         const { data, error } = await supabase
           .from("price_feed")
           .select("*")
@@ -27,11 +34,14 @@ const LastTradedPrice = (props: Props) => {
           console.error("[LAST_TRADED_PRICE] :", error);
           return;
         }
-        if(data?.length > 0){
+        
+        // If we have data , get the last traded price
+        if (data?.length > 0) {
           const price = data?.[0]?.["price"];
           if (price) setLastTradedPrice(price);
         }
       };
+
       getLastTradedPrice();
     }
   }, [selectedMarket]);
