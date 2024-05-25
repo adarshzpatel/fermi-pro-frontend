@@ -1,3 +1,4 @@
+[Deployed Link - https://devnet.fermilabs.xyz](https://devnet.fermilabs.xyz)
 
 1. git clone 
 2. npm install 
