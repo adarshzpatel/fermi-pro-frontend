@@ -11,7 +11,7 @@ import { BiHelpCircle } from "react-icons/bi";
 
 function TutorialPopover() {
   return (
-    <Popover placement="top-end" showArrow={true}>
+    <Popover defaultOpen={true} placement="top-end" showArrow={true}>
       <PopoverTrigger className="absolute  bottom-6 right-6">
         <Button isIconOnly color="secondary">
           <BiHelpCircle className="h-6 w-6" />

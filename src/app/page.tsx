@@ -34,6 +34,7 @@ export default function Home() {
   const selectedMarket = useFermiStore((s) => s.selectedMarket);
   const client = useFermiStore((s) => s.client);
   const set = useFermiStore((s) => s.set);
+  const [showTutorial,setShowTutorial] = useState(false);
   const {
     fetchEventHeap,
     fetchOpenOrders,
@@ -92,6 +93,7 @@ export default function Home() {
         await fetchEventHeap();
         await fetchOpenOrders();
         setLoading(false);
+        setShowTutorial(true);
       };
       init();
     }
@@ -181,7 +183,7 @@ export default function Home() {
           </div>
         )}
 
-        <TutorialPopover/>
+        {showTutorial && <TutorialPopover/>}
       </main>
     </>
   );

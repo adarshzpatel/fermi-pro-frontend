@@ -1083,6 +1083,87 @@ export interface OpenbookV2 {
       ]
     },
     {
+      "name": "atomicFinalizeEventsDirect",
+      "accounts": [
+        {
+          "name": "market",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "marketAuthority",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "CHECK : not usafe."
+          ]
+        },
+        {
+          "name": "eventHeap",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "takerBaseAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "takerQuoteAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "makerBaseAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "makerQuoteAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "marketVaultQuote",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "marketVaultBase",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "maker",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "taker",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "limit",
+          "type": {
+            "defined": "usize"
+          }
+        }
+      ]
+    },
+    {
       "name": "atomicFinalizeGivenEvents",
       "accounts": [
         {
@@ -4946,6 +5027,87 @@ export interface OpenbookV2 {
         ]
       },
       {
+      "name": "atomicFinalizeEventsDirect",
+      "accounts": [
+        {
+          "name": "market",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "marketAuthority",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "CHECK : not usafe."
+          ]
+        },
+        {
+          "name": "eventHeap",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "takerBaseAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "takerQuoteAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "makerBaseAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "makerQuoteAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "marketVaultQuote",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "marketVaultBase",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "maker",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "taker",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "limit",
+          "type": {
+            "defined": "usize"
+          }
+        }
+      ]
+    },
+      {
         "name": "atomicFinalizeGivenEvents",
         "accounts": [
           {
@@ -8733,6 +8895,87 @@ export interface OpenbookV2 {
         {
           "name": "limit",
           "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "atomicFinalizeEventsDirect",
+      "accounts": [
+        {
+          "name": "market",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "marketAuthority",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "CHECK : not usafe."
+          ]
+        },
+        {
+          "name": "eventHeap",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "takerBaseAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "takerQuoteAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "makerBaseAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "makerQuoteAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "marketVaultQuote",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "marketVaultBase",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "maker",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "taker",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "limit",
+          "type": {
+            "defined": "usize"
+          }
         }
       ]
     },
@@ -12598,6 +12841,87 @@ export interface OpenbookV2 {
           }
         ]
       },
+      {
+      "name": "atomicFinalizeEventsDirect",
+      "accounts": [
+        {
+          "name": "market",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "marketAuthority",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "CHECK : not usafe."
+          ]
+        },
+        {
+          "name": "eventHeap",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "takerBaseAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "takerQuoteAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "makerBaseAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "makerQuoteAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "marketVaultQuote",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "marketVaultBase",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "maker",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "taker",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "limit",
+          "type": {
+            "defined": "usize"
+          }
+        }
+      ]
+    },
       {
         "name": "atomicFinalizeGivenEvents",
         "accounts": [
