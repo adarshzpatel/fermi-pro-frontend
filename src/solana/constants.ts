@@ -12,11 +12,11 @@ export type MarketType = {
 };
 
 export const MARKETS: MarketType[] = [
-  {
-    baseTokenName: "JUP",
-    quoteTokenName: "USDC",
-    marketPda: "9NUJ5TBsYJ6PeRmKTGW72m5RK7vMRGXhxjXPXW9mxYzN",
-  },
+  // {
+  //   baseTokenName: "JUP",
+  //   quoteTokenName: "USDC",
+  //   marketPda: "9NUJ5TBsYJ6PeRmKTGW72m5RK7vMRGXhxjXPXW9mxYzN",
+  // },
   {
     baseTokenName: "CWIF",
     quoteTokenName: "USDC",
